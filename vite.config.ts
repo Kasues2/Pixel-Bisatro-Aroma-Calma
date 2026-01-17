@@ -1,12 +1,18 @@
-import { defineConfig } from 'vite';
+import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 
 // https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [react()],
-  base: './', // CRITICAL: Ensures assets are loaded relatively in the electron build
-  build: {
-    outDir: 'dist',
-    emptyOutDir: true,
-  }
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), '');
+  return {
+    plugins: [react()],
+    base: './', 
+    define: {
+      'process.env.API_KEY': JSON.stringify(env.API_KEY)
+    },
+    build: {
+      outDir: 'dist',
+      emptyOutDir: true,
+    }
+  };
 });

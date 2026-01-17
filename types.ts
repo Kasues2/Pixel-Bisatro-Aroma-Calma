@@ -48,6 +48,8 @@ export interface GameState {
   timeRemaining: number; // Seconds left in the day
   phase: GamePhase; // Replaces simple isPlaying boolean
   
+  dailyReview?: string; // New: AI Generated Review
+  
   gameMode?: 'SOLO' | 'MULTI_HOST' | 'MULTI_CLIENT';
 }
 
